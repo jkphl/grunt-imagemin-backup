@@ -1,6 +1,5 @@
 'use strict';
-var fs				= require('fs');
-var fsSync			= require('fs-sync');
+var fs				= require('fs-extra');
 var os				= require('os');
 var path			= require('path');
 var async			= require('async');
@@ -24,6 +23,7 @@ module.exports = function (grunt) {
         var done				= this.async();
         var files				= this.files;
         var totalSaved			= 0;
+        var minified			= 0;
         var options				= this.options({
             interlaced			: true,
             optimizationLevel	: 3,
@@ -33,7 +33,7 @@ module.exports = function (grunt) {
 		// Validate the backup directory
         var backup				= ('backup' in options) ? path.resolve(options.backup) : null;
         if (backup) {
-        	fsSync.mkdir(backup);
+        	fs.mkdirsSync(backup);
         }
         if (!backup || !fs.existsSync(backup)) {
         	grunt.fail.warn('No or invalid backup directory specified!', 6);
@@ -90,15 +90,15 @@ module.exports = function (grunt) {
                			// Check if the target file already exists and compare its modification date and time with the recorded one
                			var destStats	= fs.statSync(file.dest);
                			if (destStats && (row.tstamp >= destStats.mtime.getTime())) {
-	               			grunt.log.writeln(chalk.green('✔ ') + file.src[0] + chalk.gray(' (no changes)'));
+	               			grunt.verbose.writeln(chalk.green('✔ ') + file.src[0] + chalk.gray(' (no changes)'));
 	               			return next();
                			}
                		}
                		
                		// If the file should be backed up before processing
                		if (file.src[0] == file.dest) {
-               			fsSync.copy(file.src[0], path.join(backup, file.src[0]), {force: true});
-               			grunt.log.writeln(chalk.green('✔ ') + file.src[0] + ' backed up');
+               			fs.copySync(file.src[0], path.join(backup, file.src[0]));
+               			grunt.verbose.writeln(chalk.green('✔ ') + file.src[0] + ' backed up');
                		}
 
                		imagemin.run(function (err, data) {
@@ -109,7 +109,7 @@ module.exports = function (grunt) {
 	
 	                    var origSize = stats.size;
 	                    var diffSize = origSize - data[0].contents.length;
-	
+						++minified;
 	                    totalSaved += diffSize;
 	
 	                    if (diffSize < 10) {
@@ -139,8 +139,8 @@ module.exports = function (grunt) {
             }
 
             var msg = [
-                'Minified ' + files.length,
-                files.length === 1 ? 'image' : 'images',
+                'Minified ' + minified,
+                minified === 1 ? 'image' : 'images',
                 chalk.gray('(saved ' + prettyBytes(totalSaved) + ')')
             ].join(' ');
 
