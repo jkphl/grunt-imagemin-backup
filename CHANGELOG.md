@@ -1,1 +1,1 @@
-## 0.1.0 Initial release (unreleased)
+## 0.1.0 Initial release (2015-08-30)
