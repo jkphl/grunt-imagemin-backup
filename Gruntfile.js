@@ -23,13 +23,13 @@ module.exports = function (grunt) {
       }
     },
     clean: {
-      test: ['tmp']
+      test: ['tmp', 'cache.db']
     },
     imageminbackup: {
+      options: {
+        backup: 'backup'
+      },
       dist: {
-        options: {
-          backup: 'backup'
-        },
         files: [{
           expand: true,
           cwd: 'test/fixtures',
@@ -38,9 +38,6 @@ module.exports = function (grunt) {
         }]
       },
       rename: {
-        options: {
-          backup: 'backup'
-        },
         files: {
           'tmp/rename.jpg': 'test/fixtures/test.jpg'
         }
