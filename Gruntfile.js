@@ -26,26 +26,17 @@ module.exports = function (grunt) {
       test: ['tmp']
     },
     imageminbackup: {
+      options: {
+        backup: 'backup'
+      },
       dist: {
-      	options: {
-      		backup: 'backup'      		
-      	},
         files: [{
           expand: true,
           cwd: 'test/fixtures',
           src: '**/*.{gif,GIF,jpg,JPG,png,PNG}',
-//          dest: 'tmp'
           dest: 'test/fixtures'
         }]
       },
-//      backup: {
-//        files: [{
-//          expand: true,
-//          cwd: 'test/fixtures',
-//          src: '**/*.{gif,GIF,jpg,JPG,png,PNG}',
-//          dest: 'test/fixtures'
-//        }]
-//      },
       rename: {
         files: {
           'tmp/rename.jpg': 'test/fixtures/test.jpg'
