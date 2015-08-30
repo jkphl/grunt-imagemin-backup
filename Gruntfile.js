@@ -34,7 +34,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: 'test/fixtures',
           src: '**/*.{gif,GIF,jpg,JPG,png,PNG}',
-          dest: 'test/fixtures'
+          dest: 'tmp' // 'test/fixtures'
         }]
       },
       rename: {
