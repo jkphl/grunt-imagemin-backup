@@ -1,6 +1,6 @@
 {
   "name": "grunt-imagemin-backup",
-  "description": "Minify PNG, JPEG, GIF and SVG images while keeping a backup copy of the original files",
+  "description": "In-place-minify PNG, JPEG, GIF and SVG images while keeping a backup copy of the original files",
   "version": "0.1.0",
   "author": "Joschi Kuphal <joschi@kuphal.net> (https://jkphl.is)",
 	"repository": {

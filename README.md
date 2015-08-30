@@ -1,6 +1,6 @@
 # grunt-imagemin-backup
 
-> Minify PNG, JPEG, GIF and SVG images while keeping a backup copy of the original files
+> In-place-minify PNG, JPEG, GIF and SVG images while keeping a backup copy of the original files
 
 This Grunt task is basically a clone of the excellent [grunt-contrib-imagemin](https://github.com/gruntjs/grunt-contrib-imagemin) task and shares all its [features and options](https://github.com/gruntjs/grunt-contrib-imagemin#imagemin-task). Additional characteristics are:
  
