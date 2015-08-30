@@ -2,11 +2,11 @@
 
 > In-place-minify PNG, JPEG, GIF and SVG images while keeping a backup copy of the original files
 
-This Grunt task is basically a clone of the excellent [grunt-contrib-imagemin](https://github.com/gruntjs/grunt-contrib-imagemin) task and shares all its [features and options](https://github.com/gruntjs/grunt-contrib-imagemin#imagemin-task). Additional characteristics are:
+This Grunt task is basically a clone of the excellent [grunt-contrib-imagemin](https://github.com/gruntjs/grunt-contrib-imagemin) task and builds on top of its [features and options](https://github.com/gruntjs/grunt-contrib-imagemin#imagemin-task). Additional features are:
  
 * It is meant for **in-place replacement** of images with their minified versions.
-* It is saving a **backup copy** of all original images.
-* It is **tracking previous minifications** to minify only those images that have changed since the last run.
+* It is keeping a **backup copy** of all original images.
+* It is **tracking previous minifications** to process only those images that have changed since the last run.
 
 
 ## Getting Started
@@ -46,24 +46,25 @@ grunt.initConfig({
 
 #### Base options
 
-*grunt-imagemin-backup* uses the same configuration options as the original *grunt-contrib-imagemin* task. For details on these options, please see their respective documentation:
+*grunt-imagemin-backup* uses the same configuration options as the original *grunt-contrib-imagemin* task. For details please see their respective documentation:
 
 * [optimizationLevel (png)](https://github.com/gruntjs/grunt-contrib-imagemin#optimizationlevel-png)
 * [progressive (jpg)](https://github.com/gruntjs/grunt-contrib-imagemin#progressive-jpg)
 * [interlaced (gif)](https://github.com/gruntjs/grunt-contrib-imagemin#interlaced-gif)
 * [svgoPlugins (svg)](https://github.com/gruntjs/grunt-contrib-imagemin#-svgoplugins-svg)
-* [usel (png)](https://github.com/gruntjs/grunt-contrib-imagemin#use)
+* [use](https://github.com/gruntjs/grunt-contrib-imagemin#use)
 
-#### options.backup
-Type: `String`
-Default value: None
+#### options.backup (mandatory)
 
-The directory that should be used as the base directory for image backup copies. The source images and their directory structures will be copied here recursively.
+* Type: `String`
+* Default value: None
+
+The directory that should be used as the base for image backups. The source images and their directory structures will be copied recursively.
 
 
 ### Usage Example
 
-In this example, the backup directory is set to `.backup` (must exist prior to running this task). The task will find all PNG, JPEG, GIF and SVG images below `path/to/assets`, minify them and save a backup copy of each to the corresponding location under `.backup` (directories will be created as necessary).
+In this example, the backup directory is set to `.backup` (must exist prior to running this task). The task will find all PNG, JPEG, GIF and SVG images below `path/to/assets`, minify them in-place and save a backup copy of each to the corresponding location under `.backup` (directories will be created as necessary).
 
 ```js
 var mozjpeg                 = require('imagemin-mozjpeg');
@@ -95,7 +96,7 @@ grunt.initConfig({
 ```
 
 #### Minification history
-*grunt-imagemin-backup* uses an [sqlite3](https://www.npmjs.com/package/sqlite3) database for storing information about previous minifactions runs. If you, for whatever reason, need to reset this database, you may simply delete the file `<project-root>/node_modules/grunt-imagemin-backup/cache.db`.
+*grunt-imagemin-backup* uses an [sqlite3](https://www.npmjs.com/package/sqlite3) database for storing information about previous minifications runs. If you, for whatever reason, need to reset this database, simply delete the file `<project-root>/node_modules/grunt-imagemin-backup/cache.db`.
 
 
 ## Contributing
