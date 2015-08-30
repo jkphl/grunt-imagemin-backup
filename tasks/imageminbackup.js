@@ -96,7 +96,7 @@ module.exports = function (grunt) {
                		}
                		
                		// If the file should be backed up before processing
-               		if (file.src[0] == file.dest) {
+               		if (file.src[0] === file.dest) {
                			fs.copySync(file.src[0], path.join(backup, file.src[0]));
                			grunt.verbose.writeln(chalk.green('✔ ') + file.src[0] + ' backed up');
                		}
@@ -140,7 +140,7 @@ module.exports = function (grunt) {
 
             var msg = [
                 'Minified ' + minified,
-                minified === 1 ? 'image' : 'images',
+				(minified === 1) ? 'image' : 'images',
                 chalk.gray('(saved ' + prettyBytes(totalSaved) + ')')
             ].join(' ');
 
